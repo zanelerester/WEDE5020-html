@@ -452,8 +452,37 @@ function initMap() {
         .bindPopup('<strong>The Chocolate Den</strong><br>123 Main Road, Randburg<br><a href="https://www.google.com/maps/dir/?api=1&destination=-26.0941,28.0012" target="_blank" rel="noopener noreferrer">Get directions</a>')
         .openPopup();
 
+    // Shaded circle showing the Gauteng same-area delivery zone
+    L.circle(shop, { radius: 25000, color: '#e0457f', fillColor: '#f2679f', fillOpacity: 0.08, weight: 1 })
+        .addTo(map)
+        .bindPopup('Gauteng delivery zone (about 25 km): R60, free over R750');
+
     // Only zoom with the scroll wheel after the user clicks the map, so the page scrolls normally
     map.on('click', function () { map.scrollWheelZoom.enable(); });
+
+    // "How far am I?" - uses the browser's location to show the distance to the shop
+    const locateButton = document.getElementById('locate-btn');
+    const locateResult = document.getElementById('locate-result');
+    if (!locateButton) return;
+
+    locateButton.addEventListener('click', function () {
+        if (!('geolocation' in navigator)) {
+            locateResult.textContent = 'Sorry, your browser does not support location services.';
+            return;
+        }
+        locateResult.textContent = 'Finding your location...';
+        navigator.geolocation.getCurrentPosition(function (position) {
+            const you = [position.coords.latitude, position.coords.longitude];
+            const km = map.distance(you, shop) / 1000;
+            L.marker(you, { title: 'Your location' }).addTo(map).bindPopup('You are here').openPopup();
+            L.polyline([you, shop], { color: '#5a2e1d', dashArray: '6 8' }).addTo(map);
+            map.fitBounds([you, shop], { padding: [40, 40] });
+            locateResult.textContent = 'You are about ' + km.toFixed(1) + ' km from The Chocolate Den. ' +
+                (km <= 25 ? 'You are inside our Gauteng delivery zone (R60, free over R750).' : 'Our nationwide delivery (R120) reaches you in 2-5 working days.');
+        }, function () {
+            locateResult.textContent = 'We could not get your location. Please allow location access and try again.';
+        }, { timeout: 10000 });
+    });
 }
 
 /* ---------- Open / closed status (Contact page) ---------- */

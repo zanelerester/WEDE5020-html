@@ -71,7 +71,7 @@ The Chocolate Den was established in the early 1980s by Felicity Phillips. It wa
 - **Accordion:** FAQ on the About page (one answer open at a time, keyboard and screen-reader friendly).
 - **Tabs:** Details / Specifications / Usage Tips on the product page (arrow-key navigation).
 - **Lightbox gallery:** click any gallery or shop image to view it larger, with next/previous buttons, arrow keys and Escape to close. The lightbox is built with DOM manipulation.
-- **Interactive map:** Leaflet with OpenStreetMap tiles shows the shop location with a popup and a "Get directions" link.
+- **Interactive map:** Leaflet with OpenStreetMap tiles shows the shop location with a popup and a "Get directions" link, a shaded Gauteng delivery zone, and a "How far am I from the shop?" button that uses the browser's location to draw a line to the shop, show the distance and say which delivery option applies.
 - **Cart counter:** "Add to Cart" buttons update a counter in the header (stored in `localStorage`) and show a toast message.
 - **Animations and transitions:** hero fade-in, cards that fade in as you scroll (IntersectionObserver), hover effects on cards, buttons and images. Animations are turned off for users who prefer reduced motion.
 
@@ -205,6 +205,7 @@ Other fixes from reviewing Part 2:
 - **Security:** Content Security Policy, Subresource Integrity on CDN files, safe DOM updates, `rel="noopener noreferrer"` and referrer policy.
 - **New pages:** `enquiry.html` and `404.html`.
 - **Deployment:** the site is published on GitHub Pages.
+- **Rubric review fixes:** shortened page titles to 60 characters or fewer and meta descriptions to 160 characters or fewer, so search results show them in full. Added the delivery zone and distance finder to the map. Reference dates that could not be confirmed now use "n.d.".
 
 ### Part 2 – Styling with CSS (25 September 2026)
 - Added `style.css` with a pink colour theme for the navigation bar, buttons, product cards, forms and footer.
@@ -226,10 +227,10 @@ Other fixes from reviewing Part 2:
 
 Images
 
-- edurs34. 2022. *Muffin, cupcake, unicorn* [Illustration]. Pixabay. Available at: https://pixabay.com/images/id-7749811/ [Accessed 18 August 2026].
-- frank_rietsch. 2021. *Cupcake, muffin, sprinkles* [Illustration]. Pixabay. Available at: https://pixabay.com/images/id-6524880/ [Accessed 18 August 2026].
+- edurs34. n.d. *Muffin, cupcake, unicorn* [Illustration]. Pixabay. Available at: https://pixabay.com/images/id-7749811/ [Accessed 18 August 2026].
+- frank_rietsch. n.d. *Cupcake, muffin, sprinkles* [Illustration]. Pixabay. Available at: https://pixabay.com/images/id-6524880/ [Accessed 18 August 2026].
 - Pexels. n.d. *Chocolate chip muffins* [Photograph]. Pexels. Available at: https://www.pexels.com/photo/2179039/ [Accessed 18 August 2026].
-- robertasriabovas. 2020. *Cupcakes, raspberries, dessert* [Photograph]. Pixabay. Available at: https://pixabay.com/images/id-4944589/ [Accessed 19 August 2026].
+- robertasriabovas. n.d. *Cupcakes, raspberries, dessert* [Photograph]. Pixabay. Available at: https://pixabay.com/images/id-4944589/ [Accessed 19 August 2026].
 - The Chocolate Den. n.d. *Product images* [Photographs]. Available at: https://www.chocolateden.co.za [Accessed 18 August 2026].
 
 Libraries, fonts and data
@@ -240,14 +241,14 @@ Libraries, fonts and data
 
 Documentation and tutorials
 
-- Google. 2025. *Create and submit a robots.txt file*. Google Search Central. Available at: https://developers.google.com/search/docs/crawling-indexing/robots/create-robots-txt [Accessed 1 November 2026].
-- Google. 2025. *Build and submit a sitemap*. Google Search Central. Available at: https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap [Accessed 1 November 2026].
-- Google. 2025. *SEO Starter Guide*. Google Search Central. Available at: https://developers.google.com/search/docs/fundamentals/seo-starter-guide [Accessed 1 November 2026].
-- MDN Web Docs. 2025. *Client-side form validation*. Mozilla. Available at: https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation [Accessed 1 November 2026].
-- MDN Web Docs. 2025. *Content Security Policy (CSP)*. Mozilla. Available at: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP [Accessed 1 November 2026].
-- MDN Web Docs. 2025. *Intersection Observer API*. Mozilla. Available at: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API [Accessed 1 November 2026].
-- MDN Web Docs. 2025. *Subresource Integrity*. Mozilla. Available at: https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity [Accessed 1 November 2026].
+- Google. n.d. *Create and submit a robots.txt file*. Google Search Central. Available at: https://developers.google.com/search/docs/crawling-indexing/robots/create-robots-txt [Accessed 1 November 2026].
+- Google. n.d. *Build and submit a sitemap*. Google Search Central. Available at: https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap [Accessed 1 November 2026].
+- Google. n.d. *SEO Starter Guide*. Google Search Central. Available at: https://developers.google.com/search/docs/fundamentals/seo-starter-guide [Accessed 1 November 2026].
+- MDN Web Docs. n.d. *Client-side form validation*. Mozilla. Available at: https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation [Accessed 1 November 2026].
+- MDN Web Docs. n.d. *Content Security Policy (CSP)*. Mozilla. Available at: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP [Accessed 1 November 2026].
+- MDN Web Docs. n.d. *Intersection Observer API*. Mozilla. Available at: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API [Accessed 1 November 2026].
+- MDN Web Docs. n.d. *Subresource Integrity*. Mozilla. Available at: https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity [Accessed 1 November 2026].
 - Sitemaps.org. 2016. *Sitemaps XML format*. Available at: https://www.sitemaps.org/protocol.html [Accessed 1 November 2026].
-- W3C Web Accessibility Initiative. 2024. *ARIA Authoring Practices Guide: Accordion and Tabs patterns*. Available at: https://www.w3.org/WAI/ARIA/apg/patterns/ [Accessed 1 November 2026].
-- W3Schools. 2025. *How To – Lightbox*. Available at: https://www.w3schools.com/howto/howto_js_lightbox.asp [Accessed 1 November 2026].
-- W3Schools. 2025. *JavaScript Form Validation*. Available at: https://www.w3schools.com/js/js_validation.asp [Accessed 1 November 2026].
+- W3C Web Accessibility Initiative. n.d. *ARIA Authoring Practices Guide: Accordion and Tabs patterns*. Available at: https://www.w3.org/WAI/ARIA/apg/patterns/ [Accessed 1 November 2026].
+- W3Schools. n.d. *How To – Lightbox*. Available at: https://www.w3schools.com/howto/howto_js_lightbox.asp [Accessed 1 November 2026].
+- W3Schools. n.d. *JavaScript Form Validation*. Available at: https://www.w3schools.com/js/js_validation.asp [Accessed 1 November 2026].
