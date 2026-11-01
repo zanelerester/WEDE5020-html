@@ -548,6 +548,80 @@ function initProductPage() {
     qtyInput.addEventListener('change', function () { setQty(parseInt(qtyInput.value, 10)); });
 }
 
+/* ---------- Shop page: dynamic product list with search, filter and sort ---------- */
+function initCollection() {
+    const grid = document.getElementById('product-grid');
+    if (!grid) return;
+
+    const searchInput = document.getElementById('product-search');
+    const categorySelect = document.getElementById('category-filter');
+    const sortSelect = document.getElementById('sort-products');
+    const resultsCount = document.getElementById('results-count');
+    const buttonBar = document.getElementById('category-buttons');
+
+    // Quick-filter buttons are generated from the category list
+    ['all'].concat(CATEGORIES).forEach(function (category) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.dataset.category = category;
+        button.textContent = category === 'all' ? 'All' : category;
+        buttonBar.appendChild(button);
+    });
+
+    // Allow links like collection.html?category=Packaging
+    const params = new URLSearchParams(window.location.search);
+    if (CATEGORIES.indexOf(params.get('category')) !== -1) {
+        categorySelect.value = params.get('category');
+    }
+
+    function render() {
+        const term = searchInput.value.trim().toLowerCase();
+        const category = categorySelect.value;
+
+        let results = PRODUCTS.filter(function (product) {
+            const matchesCategory = category === 'all' || product.category === category;
+            const haystack = (product.name + ' ' + product.category + ' ' + product.description).toLowerCase();
+            return matchesCategory && haystack.indexOf(term) !== -1;
+        });
+
+        switch (sortSelect.value) {
+            case 'price-asc': results.sort(function (a, b) { return a.price - b.price; }); break;
+            case 'price-desc': results.sort(function (a, b) { return b.price - a.price; }); break;
+            case 'name-asc': results.sort(function (a, b) { return a.name.localeCompare(b.name); }); break;
+            case 'name-desc': results.sort(function (a, b) { return b.name.localeCompare(a.name); }); break;
+        }
+
+        buttonBar.querySelectorAll('button').forEach(function (button) {
+            button.classList.toggle('active', button.dataset.category === category);
+        });
+
+        if (results.length === 0) {
+            const empty = document.createElement('p');
+            empty.className = 'no-results';
+            empty.textContent = 'No products match "' + searchInput.value.trim() + '". Try a different search or category.';
+            grid.replaceChildren(empty);
+        } else {
+            grid.replaceChildren.apply(grid, results.map(createProductCard));
+        }
+        resultsCount.textContent = 'Showing ' + results.length + ' of ' + PRODUCTS.length + ' products';
+    }
+
+    searchInput.addEventListener('input', render);
+    categorySelect.addEventListener('change', render);
+    sortSelect.addEventListener('change', render);
+    buttonBar.addEventListener('click', function (event) {
+        const button = event.target.closest('button');
+        if (!button) return;
+        categorySelect.value = button.dataset.category;
+        render();
+    });
+    document.getElementById('product-toolbar').addEventListener('submit', function (event) {
+        event.preventDefault();
+    });
+
+    render();
+}
+
 /* ---------- Start everything ---------- */
 initNavToggle();
 initCart();
@@ -558,3 +632,4 @@ initLightbox();
 initMap();
 initOpenStatus();
 initProductPage();
+initCollection();
