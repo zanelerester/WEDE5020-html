@@ -5,6 +5,7 @@ A multi-page, responsive website for **The Chocolate Den**, a South African shop
 | | |
 |---|---|
 | **Student** | Zanele Mbhele |
+| **Student number** | ST10502250 |
 | **Module** | Web Development (Introduction) – WEDE5020 |
 | **Submission** | Portfolio of Evidence (Part 3 – Enhancing Functionality and SEO) |
 | **Live website** | https://zanelerester.github.io/WEDE5020-html/ |
