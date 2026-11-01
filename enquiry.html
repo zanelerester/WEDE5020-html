@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.tile.openstreetmap.org https://cdnjs.cloudflare.com; base-uri 'self'; form-action 'self' mailto:">
+    <title>Product Enquiry &amp; Bulk Quotes | The Chocolate Den</title>
+    <meta name="description" content="Request a quote from The Chocolate Den. Get an instant cost and availability estimate for chocolate-making and baking supplies, including bulk discounts for businesses.">
+    <meta name="keywords" content="chocolate supplies quote, bulk baking supplies, wholesale moulding chocolate, event baking supplies, Chocolate Den enquiry">
+    <meta name="author" content="Zanele Mbhele">
+    <link rel="canonical" href="https://zanelerester.github.io/WEDE5020-html/enquiry.html">
+    <meta property="og:title" content="Product Enquiry &amp; Bulk Quotes | The Chocolate Den">
+    <meta property="og:description" content="Request a quote from The Chocolate Den. Get an instant cost and availability estimate for chocolate-making and baking supplies, including bulk discounts for businesses.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zanelerester.github.io/WEDE5020-html/enquiry.html">
+    <meta property="og:image" content="https://zanelerester.github.io/WEDE5020-html/images/hero-chocolate-chip-muffins.jpg">
+    <link rel="icon" href="images/favicon-cupcake.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a class="logo" href="index.html">
+                <img src="images/chocolate-den-logo.png" alt="The Chocolate Den logo" width="220" height="29">
+            </a>
+            <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="collection.html">Shop</a></li>
+                    <li><a href="product.html">Featured Product</a></li>
+                    <li><a href="enquiry.html" class="active" aria-current="page">Enquiry</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a class="cart-link" href="collection.html" aria-label="Cart items">
+                    <span aria-hidden="true">&#128722;</span>
+                    <span class="cart-label">Cart</span>
+                    <span class="cart-count">0</span>
+                </a>
+                <button class="nav-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main">
+        <section class="page-banner">
+            <div class="container">
+                <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / Enquiry</nav>
+                <h1>Product Enquiry &amp; Quote</h1>
+                <p>Planning an order, buying in bulk for your business or need supplies for an event? Tell us what you need and get an instant cost and availability estimate.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container contact-grid">
+                <div>
+                    <div class="info-card reveal">
+                        <h3>How It Works</h3>
+                        <ol>
+                            <li>Choose the product and quantity you need.</li>
+                            <li>Tell us how you'd like to receive your order.</li>
+                            <li>Get an instant estimate of the cost and availability.</li>
+                            <li>Our team confirms your quote by email within one working day.</li>
+                        </ol>
+                    </div>
+                    <div class="info-card reveal">
+                        <h3>Bulk Discounts</h3>
+                        <ul class="check-list">
+                            <li>10 - 24 units: 10% off</li>
+                            <li>25 units or more: 15% off</li>
+                            <li>Free delivery on orders over R750</li>
+                        </ul>
+                    </div>
+                    <img class="reveal" src="images/unicorn-cupcake-illustration.png" alt="Line drawing of a smiling unicorn cupcake" width="500" height="500" loading="lazy">
+                </div>
+
+                <!-- Enquiry form: validated in script.js, which then shows a cost/availability response -->
+                <form class="form-card" id="enquiry-form" action="enquiry.html" method="get" novalidate>
+                    <h2>Request a Quote</h2>
+                    <p class="form-intro">Fields marked <span class="required">*</span> are required.</p>
+
+                    <fieldset class="form-group">
+                        <legend>Enquiry type <span class="required">*</span></legend>
+                        <div class="radio-group">
+                            <label><input type="radio" name="enquiryType" value="Personal order" required> Personal order</label>
+                            <label><input type="radio" name="enquiryType" value="Bulk / business order"> Bulk / business order</label>
+                            <label><input type="radio" name="enquiryType" value="Event or party"> Event or party</label>
+                        </div>
+                        <span class="error-message" aria-live="polite"></span>
+                    </fieldset>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="enquiry-product">Product <span class="required">*</span></label>
+                            <select id="enquiry-product" name="product" required>
+                                <option value="">-- Choose a product --</option>
+                            </select>
+                            <span class="error-message" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="enquiry-quantity">Quantity <span class="required">*</span></label>
+                            <input type="number" id="enquiry-quantity" name="quantity" required min="1" max="500" step="1" value="1">
+                            <span class="error-message" aria-live="polite"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="enquiry-delivery">Delivery method <span class="required">*</span></label>
+                            <select id="enquiry-delivery" name="delivery" required>
+                                <option value="">-- Choose an option --</option>
+                                <option value="collect">Collect in store (free)</option>
+                                <option value="gauteng">Delivery in Gauteng (R60)</option>
+                                <option value="national">Nationwide delivery (R120)</option>
+                            </select>
+                            <span class="error-message" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="enquiry-date">Date needed by <span class="required">*</span></label>
+                            <input type="date" id="enquiry-date" name="date" required>
+                            <span class="error-message" aria-live="polite"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="enquiry-name">Full name <span class="required">*</span></label>
+                            <input type="text" id="enquiry-name" name="name" required minlength="2" maxlength="60" autocomplete="name">
+                            <span class="error-message" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="enquiry-email">Email address <span class="required">*</span></label>
+                            <input type="email" id="enquiry-email" name="email" required maxlength="100" autocomplete="email">
+                            <span class="error-message" aria-live="polite"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="enquiry-phone">Phone number <span class="required">*</span></label>
+                        <input type="tel" id="enquiry-phone" name="phone" required placeholder="e.g. 082 123 4567" pattern="^(\+27|0)[0-9 ]{9,12}$" autocomplete="tel">
+                        <span class="error-message" aria-live="polite"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="enquiry-message">Additional details</label>
+                        <textarea id="enquiry-message" name="message" maxlength="500" placeholder="e.g. colours, flavours or anything else we should know"></textarea>
+                        <span class="char-count" data-for="enquiry-message">0 / 500</span>
+                        <span class="error-message" aria-live="polite"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-block">Get My Estimate</button>
+                    <div id="enquiry-response" aria-live="polite"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <h3>The Chocolate Den</h3>
+                <p>South Africa's original chocolate-making supply shop, helping bakers create delicious chocolates since the early 1980s.</p>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="collection.html">Shop</a></li>
+                    <li><a href="enquiry.html">Enquiries &amp; Quotes</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Visit Us</h3>
+                <ul>
+                    <li>123 Main Road, Randburg</li>
+                    <li>Johannesburg, 2194</li>
+                    <li><a href="tel:+27111234567">011 123 4567</a></li>
+                    <li><a href="mailto:info@chocolateden.co.za">info@chocolateden.co.za</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://www.pinterest.com/" target="_blank" rel="noopener noreferrer">Pinterest</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 The Chocolate Den. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

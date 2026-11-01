@@ -1464,3 +1464,52 @@ fieldset.form-group{
     text-align: center;
     margin-top: 40px;
 }
+
+/* Stop grid columns and form fields from overflowing on small screens */
+.contact-grid > *,
+.form-row > *{
+    min-width: 0;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width: 100%;
+}
+
+.form-group .radio-group input,
+.checkbox-label input{
+    width: auto;
+}
+
+.checkbox-label{
+    font-weight: 400;
+}
+
+.hero{
+    padding: 60px 0;
+}
+
+.info-card ol{
+    padding-left: 20px;
+}
+
+.contact-grid img{
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.open-status{
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.open-status.is-open{ color: var(--success); }
+.open-status.is-closed{ color: var(--pink-600); }
+
+/* On smaller screens show the form before the information cards */
+@media (max-width: 960px){
+    .contact-grid > form{
+        order: -1;
+    }
+}

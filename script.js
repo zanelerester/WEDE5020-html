@@ -469,9 +469,7 @@ function initOpenStatus() {
     if (day === 6) open = minutes >= 510 && minutes < 780;               // 08:30 - 13:00
 
     status.textContent = open ? 'We are open right now - come say hello!' : 'We are currently closed. Leave us a message and we will reply next business day.';
-    status.style.marginTop = '10px';
-    status.style.fontWeight = '600';
-    status.style.color = open ? 'var(--success)' : 'var(--pink-600)';
+    status.classList.add(open ? 'is-open' : 'is-closed');
 }
 
 /* ---------- Dynamic product page (product.html?id=...) ---------- */
@@ -622,6 +620,289 @@ function initCollection() {
     render();
 }
 
+/* ---------- Form validation (shared by the enquiry and contact forms) ---------- */
+const CONTACT_EMAIL = 'info@chocolateden.co.za';   // recipient for contact form emails
+
+const PATTERNS = {
+    name: /^[A-Za-zÀ-ÿ' -]{2,60}$/,
+    email: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
+    phone: /^(\+27|0)[1-9]\d{8}$/            // South African number, checked after removing spaces
+};
+
+function todayString(offsetDays) {
+    const date = new Date();
+    date.setDate(date.getDate() + (offsetDays || 0));
+    // Local date as YYYY-MM-DD (toISOString would use UTC and can be a day off)
+    return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+}
+
+// Returns an error message for a field, or an empty string if it is valid
+function getFieldError(field) {
+    const value = field.value.trim();
+    const label = field.dataset.label || 'This field';
+
+    if (field.type === 'radio') {
+        const checked = field.form.querySelector('input[name="' + field.name + '"]:checked');
+        return checked ? '' : 'Please choose an option.';
+    }
+    if (field.type === 'checkbox') {
+        return field.required && !field.checked ? 'Please tick this box to continue.' : '';
+    }
+    if (field.required && value === '') {
+        return field.tagName === 'SELECT' ? 'Please choose an option.' : label + ' is required.';
+    }
+    if (value === '') return '';
+
+    if (field.autocomplete === 'name' && !PATTERNS.name.test(value)) {
+        return 'Please enter a valid name using letters only (2-60 characters).';
+    }
+    if (field.type === 'email' && !PATTERNS.email.test(value)) {
+        return 'Please enter a valid email address, e.g. name@example.com.';
+    }
+    if (field.type === 'tel' && !PATTERNS.phone.test(value.replace(/[\s-]/g, ''))) {
+        return 'Please enter a valid South African number, e.g. 082 123 4567 or +27 82 123 4567.';
+    }
+    if (field.type === 'number') {
+        const number = Number(value);
+        if (!Number.isInteger(number)) return 'Please enter a whole number.';
+        if (number < Number(field.min)) return 'The minimum quantity is ' + field.min + '.';
+        if (number > Number(field.max)) return 'For more than ' + field.max + ' units please call us on 011 123 4567.';
+    }
+    if (field.type === 'date') {
+        if (value < todayString(0)) return 'Please choose a date from today onwards.';
+        if (value > todayString(365)) return 'Please choose a date within the next 12 months.';
+    }
+    if (field.minLength > 0 && value.length < field.minLength) {
+        return label + ' must be at least ' + field.minLength + ' characters (currently ' + value.length + ').';
+    }
+    if (field.maxLength > 0 && value.length > field.maxLength) {
+        return label + ' must be no more than ' + field.maxLength + ' characters.';
+    }
+    return '';
+}
+
+function showFieldState(field) {
+    const group = field.closest('.form-group');
+    const message = group.querySelector('.error-message');
+    const error = getFieldError(field);
+
+    group.classList.toggle('has-error', error !== '');
+    group.classList.toggle('is-valid', error === '' && field.value.trim() !== '' && field.type !== 'radio' && field.type !== 'checkbox');
+    if (message) message.textContent = error;
+    field.setAttribute('aria-invalid', String(error !== ''));
+    return error === '';
+}
+
+function setUpValidation(form) {
+    const fields = Array.from(form.querySelectorAll('input, select, textarea'));
+
+    fields.forEach(function (field) {
+        // Use the label text (without the *) in error messages
+        const label = form.querySelector('label[for="' + field.id + '"]');
+        if (label) field.dataset.label = label.textContent.replace('*', '').trim();
+
+        field.addEventListener('blur', function () { showFieldState(field); });
+        field.addEventListener('input', function () {
+            if (field.closest('.form-group').classList.contains('has-error')) showFieldState(field);
+        });
+        field.addEventListener('change', function () { showFieldState(field); });
+    });
+
+    // Live character counters
+    form.querySelectorAll('.char-count').forEach(function (counter) {
+        const textarea = document.getElementById(counter.dataset.for);
+        textarea.addEventListener('input', function () {
+            counter.textContent = textarea.value.length + ' / ' + textarea.maxLength;
+        });
+    });
+
+    // Validate every field; focus the first one with a problem
+    return function validateAll() {
+        let firstInvalid = null;
+        const checkedRadioGroups = {};
+        fields.forEach(function (field) {
+            if (field.type === 'radio') {
+                if (checkedRadioGroups[field.name]) return;
+                checkedRadioGroups[field.name] = true;
+            }
+            if (!showFieldState(field) && !firstInvalid) firstInvalid = field;
+        });
+        if (firstInvalid) firstInvalid.focus();
+        return !firstInvalid;
+    };
+}
+
+function showFormError(container, message) {
+    const box = document.createElement('div');
+    box.className = 'form-response error';
+    box.setAttribute('role', 'alert');
+    const heading = document.createElement('h3');
+    heading.textContent = 'Please check the form';
+    const text = document.createElement('p');
+    text.textContent = message;
+    box.append(heading, text);
+    container.replaceChildren(box);
+}
+
+/* ---------- Enquiry form: validation and cost/availability response ---------- */
+function initEnquiryForm() {
+    const form = document.getElementById('enquiry-form');
+    if (!form) return;
+
+    const productSelect = document.getElementById('enquiry-product');
+    const dateInput = document.getElementById('enquiry-date');
+    const response = document.getElementById('enquiry-response');
+
+    PRODUCTS.forEach(function (product) {
+        const option = document.createElement('option');
+        option.value = product.id;
+        option.textContent = product.name + ' (' + product.size + ') - ' + formatPrice(product.price);
+        productSelect.appendChild(option);
+    });
+
+    // Pre-select a product when arriving from enquiry.html?product=...
+    const preselected = new URLSearchParams(window.location.search).get('product');
+    if (findProduct(preselected)) productSelect.value = preselected;
+
+    dateInput.min = todayString(0);
+    dateInput.max = todayString(365);
+
+    const validateAll = setUpValidation(form);
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (!validateAll()) {
+            showFormError(response, 'Some details are missing or incorrect. Please fix the highlighted fields and try again.');
+            return;
+        }
+
+        const product = findProduct(productSelect.value);
+        const qty = parseInt(document.getElementById('enquiry-quantity').value, 10);
+        const delivery = document.getElementById('enquiry-delivery').value;
+        const name = document.getElementById('enquiry-name').value.trim();
+        const enquiryType = form.querySelector('input[name="enquiryType"]:checked').value;
+
+        // Cost calculation
+        const subtotal = product.price * qty;
+        const discountRate = qty >= 25 ? 0.15 : qty >= 10 ? 0.10 : 0;
+        const discount = subtotal * discountRate;
+        const afterDiscount = subtotal - discount;
+        const deliveryFees = { collect: 0, gauteng: 60, national: 120 };
+        const deliveryDays = { collect: 1, gauteng: 2, national: 5 };
+        const deliveryFee = delivery !== 'collect' && afterDiscount >= 750 ? 0 : deliveryFees[delivery];
+        const total = afterDiscount + deliveryFee;
+
+        // Availability: extra stock takes 7-10 working days to arrive
+        const inStock = qty <= product.stock;
+        const leadDays = (inStock ? 0 : 10) + deliveryDays[delivery];
+        const readyDate = new Date();
+        readyDate.setDate(readyDate.getDate() + leadDays);
+        const neededBy = new Date(dateInput.value + 'T23:59:59');
+        const onTime = readyDate <= neededBy;
+        const reference = 'CD-' + Date.now().toString().slice(-6);
+
+        const availabilityText = inStock
+            ? 'In stock - all ' + qty + ' units are available now.'
+            : 'We have ' + product.stock + ' in stock. The remaining ' + (qty - product.stock) + ' units can be ordered in within 7-10 working days.';
+        const dateOptions = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+        const timingText = (delivery === 'collect' ? 'Ready for collection by ' : 'Estimated delivery by ') +
+            readyDate.toLocaleDateString('en-ZA', dateOptions) + '.' +
+            (onTime ? ' This is in time for the date you need it.' : ' Unfortunately this is after the date you need it - please call us on 011 123 4567 so we can try to help.');
+
+        // Build the response with DOM methods
+        const box = document.createElement('div');
+        box.className = 'form-response';
+        box.setAttribute('role', 'status');
+
+        const heading = document.createElement('h3');
+        heading.textContent = 'Thank you, ' + name.split(' ')[0] + '! Here is your estimate';
+        const intro = document.createElement('p');
+        intro.textContent = enquiryType + ' - ' + qty + ' x ' + product.name + ' (' + product.size + '). Reference: ' + reference;
+
+        const table = document.createElement('table');
+        [
+            ['Unit price', formatPrice(product.price)],
+            ['Subtotal (' + qty + ' units)', formatPrice(subtotal)],
+            ['Bulk discount (' + discountRate * 100 + '%)', '- ' + formatPrice(discount)],
+            ['Delivery', deliveryFee === 0 ? 'Free' : formatPrice(deliveryFee)],
+            ['Estimated total', formatPrice(total)]
+        ].forEach(function (row) {
+            const tr = document.createElement('tr');
+            row.forEach(function (cell) {
+                const td = document.createElement('td');
+                td.textContent = cell;
+                tr.appendChild(td);
+            });
+            table.appendChild(tr);
+        });
+
+        const availability = document.createElement('p');
+        availability.innerHTML = '<strong>Availability:</strong> ';
+        availability.append(availabilityText);
+        const timing = document.createElement('p');
+        timing.innerHTML = '<strong>Timing:</strong> ';
+        timing.append(timingText);
+        const next = document.createElement('p');
+        next.textContent = 'A consultant will email ' + document.getElementById('enquiry-email').value.trim() + ' within one working day to confirm your quote.';
+
+        box.append(heading, intro, table, availability, timing, next);
+        if (discountRate === 0 && qty < 10) {
+            const tip = document.createElement('p');
+            tip.textContent = 'Tip: order ' + (10 - qty) + ' more to get 10% off.';
+            box.appendChild(tip);
+        }
+        response.replaceChildren(box);
+        box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+}
+
+/* ---------- Contact form: validation and email ---------- */
+function initContactForm() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    const response = document.getElementById('contact-response');
+    const validateAll = setUpValidation(form);
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (!validateAll()) {
+            showFormError(response, 'Some details are missing or incorrect. Please fix the highlighted fields and try again.');
+            return;
+        }
+
+        const value = function (id) { return document.getElementById(id).value.trim(); };
+        const subject = '[' + value('contact-type') + '] ' + value('contact-subject');
+        const body =
+            'Name: ' + value('contact-name') + '\n' +
+            'Email: ' + value('contact-email') + '\n' +
+            'Phone: ' + (value('contact-phone') || 'Not provided') + '\n' +
+            'Message type: ' + value('contact-type') + '\n\n' +
+            value('contact-message');
+
+        // Compile the validated details into an email and open the user's email app
+        const mailto = 'mailto:' + CONTACT_EMAIL +
+            '?subject=' + encodeURIComponent(subject) +
+            '&body=' + encodeURIComponent(body);
+
+        const box = document.createElement('div');
+        box.className = 'form-response';
+        box.setAttribute('role', 'status');
+        const heading = document.createElement('h3');
+        heading.textContent = 'Thanks, ' + value('contact-name').split(' ')[0] + '! Your email is ready';
+        const text = document.createElement('p');
+        text.textContent = 'Your email app should open with your message addressed to ' + CONTACT_EMAIL + '. Just press send. If nothing opened, use the button below.';
+        const link = document.createElement('a');
+        link.className = 'btn btn-small';
+        link.href = mailto;
+        link.textContent = 'Open email';
+        box.append(heading, text, link);
+        response.replaceChildren(box);
+
+        window.location.href = mailto;
+    });
+}
+
 /* ---------- Start everything ---------- */
 initNavToggle();
 initCart();
@@ -633,3 +914,5 @@ initMap();
 initOpenStatus();
 initProductPage();
 initCollection();
+initEnquiryForm();
+initContactForm();
