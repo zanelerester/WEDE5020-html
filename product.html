@@ -1,49 +1,205 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-ZA">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.tile.openstreetmap.org https://cdnjs.cloudflare.com; base-uri 'self'; form-action 'self' mailto:">
+    <title>Paper Muffin Cup Liners | The Chocolate Den</title>
+    <meta name="description" content="Greaseproof paper muffin cup liners for baking muffins and cupcakes. View product details, specifications and baking tips at The Chocolate Den.">
+    <meta name="keywords" content="muffin cup liners, cupcake liners, baking cups, baking supplies South Africa">
+    <meta name="author" content="Zanele Mbhele">
+    <link rel="canonical" href="https://zanelerester.github.io/WEDE5020-html/product.html">
+    <meta property="og:title" content="Paper Muffin Cup Liners | The Chocolate Den">
+    <meta property="og:description" content="Greaseproof paper muffin cup liners for baking muffins and cupcakes. View product details, specifications and baking tips at The Chocolate Den.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zanelerester.github.io/WEDE5020-html/product.html">
+    <meta property="og:image" content="https://zanelerester.github.io/WEDE5020-html/images/hero-chocolate-chip-muffins.jpg">
     <link rel="icon" href="images/favicon-cupcake.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-           <header>
-  <nav>
-        <ul class="nav" >
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="product.html">Products</a></li>
-            <li><a href="collection.html">Collection</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
-    <!-- Logo-->
-    <div class="logo">
-        <img src="images/chocolate-den-logo.png" alt="Chocolate Den Logo" width="250" height="50">
+    <a class="skip-link" href="#main">Skip to main content</a>
 
-    </div>
+    <header class="site-header">
+        <div class="container">
+            <a class="logo" href="index.html">
+                <img src="images/chocolate-den-logo.png" alt="The Chocolate Den logo" width="220" height="29">
+            </a>
+            <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="collection.html">Shop</a></li>
+                    <li><a href="product.html" class="active" aria-current="page">Featured Product</a></li>
+                    <li><a href="enquiry.html">Enquiry</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a class="cart-link" href="collection.html" aria-label="Cart items">
+                    <span aria-hidden="true">&#128722;</span>
+                    <span class="cart-label">Cart</span>
+                    <span class="cart-count">0</span>
+                </a>
+                <button class="nav-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+            </div>
+        </div>
     </header>
-    
 
-  <div class="product-section">
+    <main id="main">
+        <section class="section">
+            <div class="container">
+                <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / <a href="collection.html">Shop</a> / <span id="breadcrumb-name">Paper Muffin Cup Liners</span></nav>
 
-  <div class="product-info">
-    <h1>Product Heading</h1>
-    <p class="price">R499.00</p>
-    <p class="description">
-      This is a muffin cup liner, it is made of high-quality paper and is perfect for baking muffins and cupcakes. The liners are designed to fit standard muffin pans and provide a non-stick surface for easy removal of baked goods.
-    </p>
-    <button class="add-to-cart-btn">Add to Cart</button>
-  </div>
+                <!-- Product details: shows the muffin liners by default, script.js swaps in
+                     the product chosen in the shop (product.html?id=...) -->
+                <div class="product-detail" id="product-detail">
+                    <button class="product-image" id="product-image-btn" data-lightbox="product" data-src="products/paper-muffin-cup-liners.jpg" data-caption="Paper Muffin Cup Liners">
+                        <img id="product-img" src="products/paper-muffin-cup-liners.jpg" alt="Stack of white paper muffin cup liners" width="225" height="225">
+                    </button>
+                    <div class="product-info">
+                        <span class="product-category" id="product-category">Baking</span>
+                        <h1 id="product-name">Paper Muffin Cup Liners</h1>
+                        <p class="price" id="product-price">R10.00</p>
+                        <span class="stock in-stock" id="product-stock">In stock</span>
+                        <p class="description" id="product-description">High-quality greaseproof paper liners for baking muffins and cupcakes. They fit standard muffin pans, keep your pans clean and make it easy to lift out baked goods without sticking.</p>
 
-  <div class="product-image">
-    <img src="products/paper-muffin-cup-liners.jpg" alt="Product Image">
-  </div>
+                        <div class="purchase-row">
+                            <div class="qty">
+                                <button type="button" id="qty-minus" aria-label="Decrease quantity">&minus;</button>
+                                <label for="qty-input" class="visually-hidden">Quantity</label>
+                                <input type="number" id="qty-input" value="1" min="1" max="99">
+                                <button type="button" id="qty-plus" aria-label="Increase quantity">+</button>
+                            </div>
+                            <button class="btn add-to-cart" id="product-add" data-product="Paper Muffin Cup Liners">Add to Cart</button>
+                        </div>
 
-</div>
-<footer>
-    <p>&copy; 2026 Chocolate Den. All rights reserved.</p>
-  </footer>
+                        <ul class="product-meta">
+                            <li><strong>Pack size:</strong> <span id="product-size">Pack of 20</span></li>
+                            <li><strong>Delivery:</strong> 2-5 working days nationwide</li>
+                            <li><strong>Bulk orders:</strong> <a href="enquiry.html">request a quote</a> for 10% off 10+ units</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <div class="tab-list" role="tablist" aria-label="Product information">
+                        <button role="tab" id="tab-details" aria-selected="true" aria-controls="panel-details">Details</button>
+                        <button role="tab" id="tab-specs" aria-selected="false" aria-controls="panel-specs" tabindex="-1">Specifications</button>
+                        <button role="tab" id="tab-tips" aria-selected="false" aria-controls="panel-tips" tabindex="-1">Usage Tips</button>
+                    </div>
+                    <div class="tab-panel" role="tabpanel" id="panel-details" aria-labelledby="tab-details">
+                        <p id="product-long-description">Our paper muffin cup liners are a kitchen staple for anyone who bakes. The greaseproof paper holds its shape in the oven, keeps colours bright and peels away cleanly from the cake. Use them for muffins, cupcakes, mini cheesecakes or even for serving homemade chocolates and sweets.</p>
+                    </div>
+                    <div class="tab-panel" role="tabpanel" id="panel-specs" aria-labelledby="tab-specs" hidden>
+                        <table class="spec-table">
+                            <tbody id="product-specs">
+                                <tr><th scope="row">Material</th><td>Greaseproof paper</td></tr>
+                                <tr><th scope="row">Size</th><td>Standard (50 mm base)</td></tr>
+                                <tr><th scope="row">Colour</th><td>White</td></tr>
+                                <tr><th scope="row">Oven safe</th><td>Up to 220 &deg;C</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-panel" role="tabpanel" id="panel-tips" aria-labelledby="tab-tips" hidden>
+                        <ul class="check-list" id="product-tips">
+                            <li>Fill liners two-thirds full for a nicely domed muffin.</li>
+                            <li>Place liners in a muffin pan so they keep their shape while baking.</li>
+                            <li>Let cupcakes cool completely before icing.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-header">
+                    <span class="eyebrow">You may also like</span>
+                    <h2>Related Products</h2>
+                </div>
+                <div class="product-grid" id="related-products">
+                    <article class="product-card">
+                        <a class="product-thumb" href="product.html?id=disposable-piping-bag">
+                            <img src="products/disposable-piping-bag.jpg" alt="Disposable plastic piping bag" width="225" height="225" loading="lazy">
+                        </a>
+                        <span class="product-category">Baking</span>
+                        <h3><a href="product.html?id=disposable-piping-bag">Disposable Piping Bags</a></h3>
+                        <div class="card-footer">
+                            <p class="price">R50.00</p>
+                            <a class="btn btn-small" href="product.html?id=disposable-piping-bag">View</a>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <a class="product-thumb" href="product.html?id=bakels-pettinice-blue-icing">
+                            <img src="products/bakels-pettinice-blue-icing.jpg" alt="Bakels Pettinice blue ready-to-roll icing" width="168" height="225" loading="lazy">
+                        </a>
+                        <span class="product-category">Baking</span>
+                        <h3><a href="product.html?id=bakels-pettinice-blue-icing">Bakels Pettinice Blue Icing</a></h3>
+                        <div class="card-footer">
+                            <p class="price">R80.00</p>
+                            <a class="btn btn-small" href="product.html?id=bakels-pettinice-blue-icing">View</a>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <a class="product-thumb" href="product.html?id=white-cake-box">
+                            <img src="products/white-cake-box.jpg" alt="White cardboard cake box" width="550" height="475" loading="lazy">
+                        </a>
+                        <span class="product-category">Packaging</span>
+                        <h3><a href="product.html?id=white-cake-box">White Cake Boxes</a></h3>
+                        <div class="card-footer">
+                            <p class="price">R25.00</p>
+                            <a class="btn btn-small" href="product.html?id=white-cake-box">View</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <h3>The Chocolate Den</h3>
+                <p>South Africa's original chocolate-making supply shop, helping bakers create delicious chocolates since the early 1980s.</p>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="collection.html">Shop</a></li>
+                    <li><a href="enquiry.html">Enquiries &amp; Quotes</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Visit Us</h3>
+                <ul>
+                    <li>123 Main Road, Randburg</li>
+                    <li>Johannesburg, 2194</li>
+                    <li><a href="tel:+27111234567">011 123 4567</a></li>
+                    <li><a href="mailto:info@chocolateden.co.za">info@chocolateden.co.za</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://www.pinterest.com/" target="_blank" rel="noopener noreferrer">Pinterest</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 The Chocolate Den. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

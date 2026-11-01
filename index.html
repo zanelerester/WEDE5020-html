@@ -1,79 +1,263 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-ZA">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chocolate Den</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.tile.openstreetmap.org https://cdnjs.cloudflare.com; base-uri 'self'; form-action 'self' mailto:">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>The Chocolate Den | Chocolate Making &amp; Baking Supplies South Africa</title>
+    <meta name="description" content="The Chocolate Den is South Africa's original chocolate-making supply shop. Buy moulding chocolate, fillings, flavouring oils, baking accessories and packaging online.">
+    <meta name="keywords" content="chocolate making supplies, moulding chocolate, chocolate moulds, baking supplies South Africa, flavouring oils, cake boxes, chocolate packaging, Chocolate Den">
+    <meta name="author" content="Zanele Mbhele">
+    <link rel="canonical" href="https://zanelerester.github.io/WEDE5020-html/">
+    <meta property="og:title" content="The Chocolate Den | Chocolate Making &amp; Baking Supplies">
+    <meta property="og:description" content="Everything you need to mould, fill, decorate and package your own chocolates - since the 1980s.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zanelerester.github.io/WEDE5020-html/">
+    <meta property="og:image" content="https://zanelerester.github.io/WEDE5020-html/images/hero-chocolate-chip-muffins.jpg">
     <link rel="icon" href="images/favicon-cupcake.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="style.css">
-    
+    <script src="script.js" defer></script>
 </head>
-
 <body>
-    <header>
-  <nav>
-        <ul class="nav" >
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="product.html">Products</a></li>
-            <li><a href="collection.html">Collection</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
-    <!-- Logo-->
-    <div class="logo">
-        <img src="images/chocolate-den-logo.png" alt="Chocolate Den Logo" width="250" height="50">
+    <a class="skip-link" href="#main">Skip to main content</a>
 
-    </div>
+    <header class="site-header">
+        <div class="container">
+            <a class="logo" href="index.html">
+                <img src="images/chocolate-den-logo.png" alt="The Chocolate Den logo" width="220" height="29">
+            </a>
+            <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html" class="active" aria-current="page">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="collection.html">Shop</a></li>
+                    <li><a href="product.html">Featured Product</a></li>
+                    <li><a href="enquiry.html">Enquiry</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a class="cart-link" href="collection.html" aria-label="Cart items">
+                    <span aria-hidden="true">&#128722;</span>
+                    <span class="cart-label">Cart</span>
+                    <span class="cart-count">0</span>
+                </a>
+                <button class="nav-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+            </div>
+        </div>
     </header>
-  
-    <div class="hero" style="text-align: center; margin-top: 50px; background-image: url('images/hero-chocolate-chip-muffins.jpg'); background-size: cover; background-position: center; padding: 100px 20px; color: black; height: 400px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <h1>Welcome to Chocolate Den</h1>
-        <p>Discover the world of exquisite chocolates!</p>
-        <button class="shop-now" >Shop Now</button>
-    </div>
-    <!--Product section-->
-    <div class="product-row" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 50px 0;">
 
-  <div class="product-card">
-    <img src="products/disposable-piping-bag.jpg" alt="Piping Bag">
-    <h3>Piping Bag</h3>
-    <p class="price">R50.00</p>
-    <button class="add-to-cart">Add to Cart</button>
-  </div>
+    <main id="main">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="eyebrow">South Africa's chocolate-making specialists</span>
+                    <h1>Make Your Own Chocolates at Home</h1>
+                    <p>Moulding chocolate, fillings, flavouring oils, baking accessories and gift packaging - everything a home baker or small business needs, all under one roof.</p>
+                    <div class="hero-buttons">
+                        <a class="btn" href="collection.html">Shop the Collection</a>
+                        <a class="btn btn-light" href="enquiry.html">Request a Quote</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <div class="product-card">
-    <img src="products/paper-muffin-cup-liners.jpg" alt="Muffin Liner">
-    <h3>Muffin Liner</h3>
-    <p class="price">R10.00</p>
-    <button class="add-to-cart">Add to Cart</button>
-  </div>
+        <!-- Why shop with us -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="eyebrow">Why The Chocolate Den?</span>
+                    <h2>Over 40 Years of Chocolate Know-How</h2>
+                    <p class="lead">We were the first shop in South Africa to sell chocolate moulds, moulding chocolate and packaging to anyone who wanted to create their own sweet treats.</p>
+                </div>
+                <div class="features">
+                    <article class="feature-card reveal">
+                        <div class="feature-icon" aria-hidden="true">&#127851;</div>
+                        <h3>Quality Ingredients</h3>
+                        <p>Easy-melt dark, milk and white moulding chocolate that sets with a glossy finish every time.</p>
+                    </article>
+                    <article class="feature-card reveal">
+                        <div class="feature-icon" aria-hidden="true">&#127874;</div>
+                        <h3>Baking Essentials</h3>
+                        <p>Piping bags, cupcake liners, icing and cake dummies for decorators of every skill level.</p>
+                    </article>
+                    <article class="feature-card reveal">
+                        <div class="feature-icon" aria-hidden="true">&#127873;</div>
+                        <h3>Beautiful Packaging</h3>
+                        <p>Clear PVC boxes and cake boxes that turn homemade treats into gifts you can sell.</p>
+                    </article>
+                    <article class="feature-card reveal">
+                        <div class="feature-icon" aria-hidden="true">&#128666;</div>
+                        <h3>Nationwide Delivery</h3>
+                        <p>We deliver across South Africa, with free delivery on orders over R750.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-  <div class="product-card">
-    <img src="products/bakels-pettinice-blue-icing.jpg" alt="Icing">
-    <h3>Icing</h3>
-    <p class="price">R80.00</p>
-    <button class="add-to-cart">Add to Cart</button>
-  </div>
+        <!-- Featured products -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="eyebrow">Best sellers</span>
+                    <h2>Featured Products</h2>
+                    <p class="lead">Our customers' favourites for moulding, filling and decorating.</p>
+                </div>
+                <div class="product-grid">
+                    <article class="product-card reveal">
+                        <a class="product-thumb" href="product.html?id=dark-chocolate-buttons">
+                            <img src="products/dark-chocolate-buttons.jpg" alt="Pile of dark moulding chocolate buttons" width="225" height="214" loading="lazy">
+                        </a>
+                        <span class="product-category">Chocolate</span>
+                        <h3><a href="product.html?id=dark-chocolate-buttons">Dark Moulding Chocolate Buttons</a></h3>
+                        <p class="product-size">500 g bag</p>
+                        <div class="card-footer">
+                            <p class="price">R80.00</p>
+                            <button class="btn btn-small add-to-cart" data-product="Dark Moulding Chocolate Buttons">Add to Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card reveal">
+                        <a class="product-thumb" href="product.html?id=caramel-toffee-spread">
+                            <img src="products/caramel-toffee-spread.jpg" alt="500 g tub of Chocolate Den caramel toffee spread" width="168" height="225" loading="lazy">
+                        </a>
+                        <span class="product-category">Fillings</span>
+                        <h3><a href="product.html?id=caramel-toffee-spread">Caramel Toffee Spread</a></h3>
+                        <p class="product-size">500 g tub</p>
+                        <div class="card-footer">
+                            <p class="price">R100.00</p>
+                            <button class="btn btn-small add-to-cart" data-product="Caramel Toffee Spread">Add to Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card reveal">
+                        <a class="product-thumb" href="product.html?id=banana-flavouring-oil">
+                            <img src="products/banana-flavouring-oil.jpg" alt="50 g bottle of banana flavouring oil" width="168" height="225" loading="lazy">
+                        </a>
+                        <span class="product-category">Flavourings</span>
+                        <h3><a href="product.html?id=banana-flavouring-oil">Banana Flavouring Oil</a></h3>
+                        <p class="product-size">50 g bottle</p>
+                        <div class="card-footer">
+                            <p class="price">R70.00</p>
+                            <button class="btn btn-small add-to-cart" data-product="Banana Flavouring Oil">Add to Cart</button>
+                        </div>
+                    </article>
+                    <article class="product-card reveal">
+                        <a class="product-thumb" href="product.html?id=clear-pvc-gift-box">
+                            <img src="products/clear-pvc-gift-box.jpg" alt="Clear PVC cube gift box for chocolates" width="225" height="168" loading="lazy">
+                        </a>
+                        <span class="product-category">Packaging</span>
+                        <h3><a href="product.html?id=clear-pvc-gift-box">Clear PVC Gift Boxes</a></h3>
+                        <p class="product-size">Pack of 10</p>
+                        <div class="card-footer">
+                            <p class="price">R100.00</p>
+                            <button class="btn btn-small add-to-cart" data-product="Clear PVC Gift Boxes">Add to Cart</button>
+                        </div>
+                    </article>
+                </div>
+                <p class="center-actions">
+                    <a class="btn btn-outline" href="collection.html">View All Products</a>
+                </p>
+            </div>
+        </section>
 
-  <div class="product-card">
-    <img src="products/clear-pvc-gift-box.jpg" alt="PVC Box">
-    <h3>PVC Box</h3>
-    <p class="price">R100.00</p>
-    <button class="add-to-cart">Add to Cart</button>
-  </div>
+        <!-- Story teaser -->
+        <section class="section">
+            <div class="container split">
+                <img src="images/raspberry-cupcakes-on-cake-stand.jpg" alt="Raspberry-topped cupcakes with white icing on a gold cake stand" width="900" height="1350" loading="lazy" class="reveal">
+                <div class="reveal">
+                    <span class="eyebrow">Our story</span>
+                    <h2>A Family Business Since the Early 1980s</h2>
+                    <p>The Chocolate Den was founded by Felicity Phillips with one simple idea: anyone should be able to make beautiful chocolates at home. Four decades later we still stock everything from moulding chocolate and fillings to packaging, so hobby bakers and small businesses can create, gift and sell their own treats.</p>
+                    <ul class="check-list">
+                        <li>Friendly advice from experienced chocolatiers</li>
+                        <li>Products for beginners and professionals</li>
+                        <li>Bulk pricing for small businesses</li>
+                    </ul>
+                    <a class="btn" href="about.html">Read Our Story</a>
+                </div>
+            </div>
+        </section>
 
-  <div class="product-card">
-    <img src="products/banana-flavouring-oil.jpg" alt="Flavouring Oil">
-    <h3>Flavouring Oil</h3>
-    <p class="price">R70.00</p>
-    <button class="add-to-cart">Add to Cart</button>
-  </div>
-  
+        <!-- Testimonials -->
+        <section class="section section-dark">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="eyebrow">Happy bakers</span>
+                    <h2>What Our Customers Say</h2>
+                </div>
+                <div class="testimonials">
+                    <blockquote class="testimonial reveal">
+                        <p>"The moulding chocolate melts beautifully and the gift boxes made my Easter orders look so professional."</p>
+                        <cite>- Thandi, home baker</cite>
+                    </blockquote>
+                    <blockquote class="testimonial reveal">
+                        <p>"I've been buying my fillings and flavouring oils here for years. Great quality and always helpful staff."</p>
+                        <cite>- Pieter, small business owner</cite>
+                    </blockquote>
+                    <blockquote class="testimonial reveal">
+                        <p>"Their advice helped me make my first batch of chocolates for my daughter's party. They were a hit!"</p>
+                        <cite>- Ayesha, first-time chocolatier</cite>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
 
-</div>
-<footer>
-    <p>&copy; 2026 Chocolate Den. All rights reserved.</p>
-  </footer>
+        <!-- Call to action -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-banner reveal">
+                    <div>
+                        <h2>Ordering for a Business or Event?</h2>
+                        <p>Send us an enquiry for bulk pricing, stock availability and delivery estimates.</p>
+                    </div>
+                    <a class="btn btn-light" href="enquiry.html">Make an Enquiry</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <h3>The Chocolate Den</h3>
+                <p>South Africa's original chocolate-making supply shop, helping bakers create delicious chocolates since the early 1980s.</p>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="collection.html">Shop</a></li>
+                    <li><a href="enquiry.html">Enquiries &amp; Quotes</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Visit Us</h3>
+                <ul>
+                    <li>123 Main Road, Randburg</li>
+                    <li>Johannesburg, 2194</li>
+                    <li><a href="tel:+27111234567">011 123 4567</a></li>
+                    <li><a href="mailto:info@chocolateden.co.za">info@chocolateden.co.za</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://www.pinterest.com/" target="_blank" rel="noopener noreferrer">Pinterest</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 The Chocolate Den. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
